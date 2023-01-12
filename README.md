@@ -1,25 +1,14 @@
 # ecrecover
-FFI (NIF) export of Ethereum's ecrecover for use from Erlang.
+FFI (NIF) export of Ethereum's ecrecover for use from Erlang based on
+https://github.com/bitcoin-core/secp256k1.git
 
-### Prerequisites
-The NIF is written in Rust, therefore the following additional build
-dependencies are needed:
-
-- Rust
-- Cargo
-- Cmake
 
 ### Build
 Execute:
 ```
-make
+./rebar3 compile
 ```
 
-To disable the local build of the NIF library, e.g. to use a prebuilt binary,
-use the following command:
-```
-ECRECOVER_DISABLE_NIF_BUILD=true make
-```
 
 ## Erlang integration
 
