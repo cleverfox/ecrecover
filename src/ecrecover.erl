@@ -37,7 +37,9 @@ recover(Hash, <<V, Sig:64/binary>>) when V == 27; V == 28 ->
             <<0:96, ShortPub/binary>>;
         {error, _} ->
             <<0:256>>
-        end.
+        end;
+recover(_Hash, _VSig) ->
+    <<0:256>>.
 
 -spec recover(<<_:(32*8)>>, <<_:(65*8)>>, integer()) -> <<_:(32*8)>>.
 recover(_Hash, _Sig, _RecId) ->

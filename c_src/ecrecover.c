@@ -42,9 +42,8 @@ recover(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
     if (recid < 0 || recid > 3) {
 		error_result(env, "Recovery id invalid 0-3x");
 	}
-printf("xx1\r\n");
+
     result = secp256k1_ecdsa_recoverable_signature_parse_compact(ctx, &signature, csignature.data, recid);
-printf("xx2\r\n");
 	if (!result) {
 		return error_result(env, "ecdsa_signature_parse_compact returned 0");
 	}
@@ -56,11 +55,8 @@ printf("xx2\r\n");
 	    return error_result(env, "ecdsa recovery problem");
 	}
 
-	// Now serialize recpubkey based on the compression flag
+	// Now serialize recpubkey
 	finished_recpubkey_buf = enif_make_new_binary(env, pubkeylen, &r);
-
-    printf("pubker[0] = %d\r\n", recpubkey.data[0]);
-
 
 	result = secp256k1_ec_pubkey_serialize(ctx, finished_recpubkey_buf,
 			&pubkeylen, &recpubkey, compressed);
