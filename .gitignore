@@ -1,8 +1,7 @@
-/target
-**/*.rs.bk
 **/*~
-/parity-ethereum
 /_build
 /ebin
 /priv/ecrecover.dll
 /priv/ecrecover.so
+/c_src/ecrecover.d
+/c_src/ecrecover.o

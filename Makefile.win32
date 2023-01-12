@@ -1,0 +1,25 @@
+secp256k1_dir := c_src/secp256k1
+secp256k1_lib_dir := c_src/secp256k1/.libs
+
+CFLAGS := -MT -DNOMINMAX -Ox -DNDEBUG -openmp -W4 -Zi -EHsc -nologo -I$(secp256k1_dir)/include
+LDFLAGS := -LIBPATH:$(secp256k1_lib_dir) -nologo
+
+.PHONY: win32_ecrecover
+win32_ecrecover: $(secp256k1_lib_dir)/libsecp256k1.lib
+
+$(secp256k1_lib_dir)/libsecp256k1.lib: $(secp256k1_lib_dir)/secp256k1.lib 
+	lib ${LDFLAGS} -OUT:$@ -nodefaultlib $^
+
+$(secp256k1_lib_dir)/secp256k1.lib: $(secp256k1_obj_dir)/fp.obj
+	lib ${LDFLAGS} -OUT:$@ -nodefaultlib $<
+
+$(secp256k1_obj_dir)/fp.obj: $(secp256k1_src_dir)/fp.cpp
+	cl -c ${CFLAGS} $< -Fo$@
+
+$(secp256k1_obj_dir)/bn_c384_256.obj: $(secp256k1_src_dir)/bn_c384_256.cpp
+	cl -c ${CFLAGS} $< -Fo$@
+
+clean_win32_secp256k1:
+	make -C $(secp256k1_dir) clean
+	rm -f $(secp256k1_lib_dir)/*.lib $(secp256k1_lib_dir)/*.dll $(secp256k1_lib_dir)/*.exp
+

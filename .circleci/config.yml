@@ -23,8 +23,6 @@ commands:
             && sudo apt-get \
             install \
             build-essential \
-            cargo \
-            cmake \
             autoconf \
             libncurses5-dev
       - run:
@@ -33,10 +31,6 @@ commands:
             curl -fsSL -o otp-src.tar.gz https://github.com/erlang/otp/archive/OTP-<< parameters.OTP_VERSION >>.tar.gz
             tar -zxf otp-src.tar.gz --strip-components=1
             ./otp_build autoconf && ./configure && make -j$(nproc) && sudo make install
-      - run:
-          name: Install rest
-          command: |
-            curl https://sh.rustup.rs -sSf | sh -s -- -yq && source $HOME/.cargo/env
 
   setup_macos:
     description: "Setup macos environment"
@@ -49,7 +43,7 @@ commands:
           name: Setup environment
           command: |
             brew update
-            brew install rust cmake erlang@<< parameters.OTP_VERSION >>
+            brew install erlang@<< parameters.OTP_VERSION >>
             brew link --force erlang@<< parameters.OTP_VERSION >>
 
   run_build:
