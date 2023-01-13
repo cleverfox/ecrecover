@@ -5,3 +5,4 @@
 /priv/ecrecover.so
 /c_src/ecrecover.d
 /c_src/ecrecover.o
+/c_src/secp256k1
