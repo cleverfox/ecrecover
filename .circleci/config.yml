@@ -4,9 +4,9 @@ executors:
   ubuntu_1804:
     docker:
       - image: circleci/buildpack-deps:bionic
-  macos_1013:
+  macos_1106:
     macos:
-      xcode: "10.0.0"
+      xcode: "13.2.1"
 
 commands:
   setup_ubuntu:
@@ -74,14 +74,14 @@ jobs:
       - setup_ubuntu:
           OTP_VERSION: "21.0"
       - run_build
-  macos_1013_otp20:
-    executor: macos_1013
+  macos_1106_otp20:
+    executor: macos_1106
     steps:
       - checkout
       - setup_macos
       - run_build
-  macos_1013_otp21:
-    executor: macos_1013
+  macos_1106_otp21:
+    executor: macos_1106
     steps:
       - checkout
       - setup_macos:
@@ -93,5 +93,5 @@ workflows:
     jobs:
       - ubuntu_1804_otp20
       - ubuntu_1804_otp21
-      - macos_1013_otp20
-      - macos_1013_otp21
+      - macos_1106_otp20
+      - macos_1106_otp21
