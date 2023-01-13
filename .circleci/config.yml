@@ -7,7 +7,9 @@ executors:
   macos_1106:
     macos:
       xcode: "13.2.1"
-
+  nix_alpine_ci:
+    docker:
+      - image: nixorg/nix:circleci
 commands:
   setup_ubuntu:
     description: "Setup Ubuntu environment"
@@ -81,7 +83,11 @@ jobs:
       - setup_macos:
           OTP_VERSION: "23"
       - run_build
-
+  nix_alpine:
+    executor: nix_alpine_ci
+    steps:
+      - checkout
+      - run: nix-shell -j auto --run "./rebar3 do get-deps, compile, eunit -v"
 workflows:
   check:
     jobs:
@@ -89,3 +95,4 @@ workflows:
       - ubuntu_2004_otp22
       - ubuntu_2004_otp23
       - macos_1106_otp23
+      - nix_alpine
