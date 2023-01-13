@@ -1,3 +1,6 @@
+// Very specific NIF just for key recovery.
+// Partly from https://github.com/mbrix/libsecp256k1
+
 #include "erl_nif.h"
 #include "secp256k1_recovery.h"
 
@@ -17,7 +20,7 @@ static ERL_NIF_TERM ok_result(ErlNifEnv* env, ERL_NIF_TERM *r)
 static ERL_NIF_TERM
 recover(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
-  ERL_NIF_TERM r;
+    ERL_NIF_TERM r;
 	ErlNifBinary message, csignature;
 	int result;
     int compressed = SECP256K1_EC_UNCOMPRESSED;
@@ -36,11 +39,11 @@ recover(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
     }
 
     if (!enif_get_int(env, argv[2], &recid)) {
-		return error_result(env, "Recovery id invalid 0-3");
+		return error_result(env, "Recovery id invalid not integer 0-3");
 	}
 
     if (recid < 0 || recid > 3) {
-		error_result(env, "Recovery id invalid 0-3x");
+		error_result(env, "Recovery id invalid 0-3");
 	}
 
     result = secp256k1_ecdsa_recoverable_signature_parse_compact(ctx, &signature, csignature.data, recid);

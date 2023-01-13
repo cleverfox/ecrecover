@@ -11,10 +11,6 @@ in {
       stable.stdenv
       ## erlang
       stable.erlangR21 # OTP 21.3.5.2
-      ## rust, required for building the NIF
-      stable.rustc
-      stable.cargo
-      stable.cmake
     ];
   };
 }
