@@ -94,7 +94,7 @@ jobs:
       - setup_macos:
           OTP_VERSION: "22"
       - run_build
-  macos_1106_otp22:
+  macos_1106_otp23:
     executor: macos_1106
     steps:
       - checkout
