@@ -1,9 +1,9 @@
 version: 2.1
 
 executors:
-  ubuntu_1804:
+  ubuntu_2004:
     docker:
-      - image: circleci/buildpack-deps:bionic
+      - image: circleci/buildpack-deps:20.04
   macos_1106:
     macos:
       xcode: "13.2.1"
@@ -59,22 +59,22 @@ commands:
             make
 
 jobs:
-  ubuntu_1804_otp21:
-    executor: ubuntu_1804
+  ubuntu_2004_otp21:
+    executor: ubuntu_2004
     steps:
       - checkout
       - setup_ubuntu:
           OTP_VERSION: "21.3.8.24"
       - run_build
-  ubuntu_1804_otp22:
-    executor: ubuntu_1804
+  ubuntu_2004_otp22:
+    executor: ubuntu_2004
     steps:
       - checkout
       - setup_ubuntu:
           OTP_VERSION: "22.3.4.26"
       - run_build
-  ubuntu_1804_otp23:
-    executor: ubuntu_1804
+  ubuntu_2004_otp23:
+    executor: ubuntu_2004
     steps:
       - checkout
       - setup_ubuntu:
@@ -105,9 +105,9 @@ jobs:
 workflows:
   check:
     jobs:
-      - ubuntu_1804_otp21
-      - ubuntu_1804_otp22
-      - ubuntu_1804_otp23
+      - ubuntu_2004_otp21
+      - ubuntu_2004_otp22
+      - ubuntu_2004_otp23
       - macos_1106_otp21
       - macos_1106_otp22
       - macos_1106_otp23
