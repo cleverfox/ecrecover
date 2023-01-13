@@ -14,7 +14,6 @@ commands:
     parameters:
       OTP_VERSION:
         type: string
-        default: "20.3.8.23"
     steps:
       - run:
           name: Setup environment
@@ -43,7 +42,6 @@ commands:
     parameters:
       OTP_VERSION:
         type: string
-        default: "20"
     steps:
       - run:
           name: Setup environment
@@ -61,24 +59,19 @@ commands:
             make
 
 jobs:
-  ubuntu_1804_otp20:
-    executor: ubuntu_1804
-    steps:
-      - checkout
-      - setup_ubuntu
-      - run_build
   ubuntu_1804_otp21:
     executor: ubuntu_1804
     steps:
       - checkout
       - setup_ubuntu:
-          OTP_VERSION: "21.0"
+          OTP_VERSION: "21.3.8.24"
       - run_build
-  macos_1106_otp20:
-    executor: macos_1106
+  ubuntu_1804_otp22:
+    executor: ubuntu_1804
     steps:
       - checkout
-      - setup_macos
+      - setup_ubuntu:
+          OTP_VERSION: "22.3.4.26"
       - run_build
   macos_1106_otp21:
     executor: macos_1106
@@ -87,11 +80,18 @@ jobs:
       - setup_macos:
           OTP_VERSION: "21"
       - run_build
+  macos_1106_otp22:
+    executor: macos_1106
+    steps:
+      - checkout
+      - setup_macos:
+          OTP_VERSION: "22"
+      - run_build
 
 workflows:
   check:
     jobs:
-      - ubuntu_1804_otp20
       - ubuntu_1804_otp21
-      - macos_1106_otp20
+      - ubuntu_1804_otp22
       - macos_1106_otp21
+      - macos_1106_otp22
