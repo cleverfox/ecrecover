@@ -1,8 +1,6 @@
 let
-  stable = import (fetchTarball { # 19.09
-    url = https://github.com/NixOS/nixpkgs-channels/archive/a22b0189002.tar.gz;
-    sha256 = "0rgd0cbxg9mrzb830hgjlvy134ivpfcnkyhbnlvvn8vl4y20zqmz";
-  }) {};
+  stable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/860b56be91fb874d48e23a950815969a7b832fbc.tar.gz"
+  ){}; # 21.11
 in {
   aeternityEnv = stable.stdenv.mkDerivation {
     name = "ecrecover";
@@ -10,7 +8,7 @@ in {
       ## base
       stable.stdenv
       ## erlang
-      stable.erlangR21 # OTP 21.3.5.2
+      stable.erlangR23 # OTP 23.3.4.4
     ];
   };
 }
