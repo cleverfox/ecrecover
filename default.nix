@@ -9,6 +9,7 @@ in {
       stable.stdenv
       ## erlang
       stable.autoconf
+      stable.automake
       stable.erlangR23 # OTP 23.3.4.4
     ];
   };
