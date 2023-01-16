@@ -7,7 +7,7 @@ git clone https://github.com/bitcoin/secp256k1
 cd secp256k1
 git -c advice.detachedHead=false checkout cbe41ac138bc0773d60ab1942b7ad6fc5eccfc19
 ./autogen.sh
-./configure --enable-module-recovery
+CFLAGS="-fPIC" ./configure --enable-module-recovery
 make clean
-make CFLAGS="-fPIC"
+make
 
