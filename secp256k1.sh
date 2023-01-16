@@ -9,4 +9,5 @@ git -c advice.detachedHead=false checkout cbe41ac138bc0773d60ab1942b7ad6fc5eccfc
 ./autogen.sh
 ./configure --enable-module-recovery
 make clean
-make
+make CFLAGS="-fPIC"
+
