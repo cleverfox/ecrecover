@@ -29,9 +29,13 @@ commands:
       - run:
           name: Install OTP
           command: |
+            mkdir otp_src
+            cd otp_src
             curl -fsSL -o otp-src.tar.gz https://github.com/erlang/otp/archive/OTP-<< parameters.OTP_VERSION >>.tar.gz
             tar -zxf otp-src.tar.gz --strip-components=1
             ./otp_build autoconf && ./configure && make -j$(nproc) && sudo make install
+            cd ..
+            rm -fr otp_src
 
   setup_macos:
     description: "Setup macos environment"
@@ -48,7 +52,6 @@ commands:
 
   run_build:
     description: "Build"
-    working_directory: ~/src
     steps:
       - checkout
       - run:
