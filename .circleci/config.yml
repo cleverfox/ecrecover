@@ -61,18 +61,6 @@ commands:
           name: Test
           command: make test
 jobs:
-  ubuntu_2004_otp21:
-    executor: ubuntu_2004
-    steps:
-      - setup_ubuntu:
-          OTP_VERSION: "21.3.8.24"
-      - run_build
-  ubuntu_2004_otp22:
-    executor: ubuntu_2004
-    steps:
-      - setup_ubuntu:
-          OTP_VERSION: "22.3.4.26"
-      - run_build
   ubuntu_2004_otp23:
     executor: ubuntu_2004
     steps:
@@ -93,8 +81,6 @@ jobs:
 workflows:
   check:
     jobs:
-      - ubuntu_2004_otp21
-      - ubuntu_2004_otp22
       - ubuntu_2004_otp23
       - macos_1106_otp23
       - nix_alpine
