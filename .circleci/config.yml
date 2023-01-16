@@ -53,6 +53,13 @@ commands:
           name: Build
           command: |
             make
+  run_tests:
+    description: "Test"
+    steps:
+      - run:
+          name: Test
+          command: |
+            make test
 
 jobs:
   ubuntu_2004_otp21:
@@ -62,6 +69,7 @@ jobs:
       - setup_ubuntu:
           OTP_VERSION: "21.3.8.24"
       - run_build
+      - run_tests
   ubuntu_2004_otp22:
     executor: ubuntu_2004
     steps:
@@ -69,6 +77,7 @@ jobs:
       - setup_ubuntu:
           OTP_VERSION: "22.3.4.26"
       - run_build
+      - run_tests
   ubuntu_2004_otp23:
     executor: ubuntu_2004
     steps:
@@ -76,6 +85,7 @@ jobs:
       - setup_ubuntu:
           OTP_VERSION: "23.3.4.18"
       - run_build
+      - run_tests
   macos_1106_otp23:
     executor: macos_1106
     steps:
@@ -83,6 +93,7 @@ jobs:
       - setup_macos:
           OTP_VERSION: "23"
       - run_build
+      - run_tests
   nix_alpine:
     executor: nix_alpine_ci
     steps:
