@@ -1,30 +1,13 @@
-UNAME := $(shell uname)
+REBAR3 ?= $(shell test -e `which rebar3` 2>/dev/null && which rebar3 || echo "./rebar3")
 
-ifeq ($(OS),Windows_NT)
-	nif_lib_src = ecrecover.dll
-	nif_lib = ecrecover.dll
-else
-ifeq ($(UNAME), Linux)
-	nif_lib_src = libecrecover.so
-	nif_lib = ecrecover.so
-endif
-ifeq ($(UNAME), Darwin)
-	nif_lib_src = libecrecover.dylib
-	nif_lib = ecrecover.so
-endif
-endif
-
-all: priv/$(nif_lib) compile
+all: compile
 
 compile:
-	./rebar3 compile
-
-priv/$(nif_lib): src/lib.rs
-ifneq ($(ECRECOVER_DISABLE_NIF_BUILD), true)
-	cargo build --release
-	cp target/release/$(nif_lib_src) $@
-endif
+	${REBAR3} compile
 
 clean:
-	rm -f priv/$(nif_lib) target/release/$(nif_lib_src)
-	./rebar3 clean
+	${REBAR3} clean
+	@rm -fr c_src/secp256k1
+
+test: compile
+	${REBAR3} eunit
