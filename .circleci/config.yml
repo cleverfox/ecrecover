@@ -9,7 +9,7 @@ executors:
       xcode: "13.2.1"
   nix_alpine_ci:
     docker:
-      - image: nixorg/nix:circleci
+      - image: nixos/nix:2.13.3
 commands:
   setup_ubuntu:
     description: "Setup Ubuntu environment"
