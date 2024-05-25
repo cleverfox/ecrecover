@@ -42,8 +42,8 @@ recover(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 		return error_result(env, "Recovery id invalid not integer 0-3");
 	}
 
-    if (recid < 0 || recid > 3) {
-		error_result(env, "Recovery id invalid 0-3");
+	if (recid < 0 || recid > 3) {
+		return error_result(env, "Recovery id invalid 0-3");
 	}
 
     result = secp256k1_ecdsa_recoverable_signature_parse_compact(ctx, &signature, csignature.data, recid);
