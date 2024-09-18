@@ -1,7 +1,7 @@
 -module(ecrecover).
 
 %% API
--export([recover/2, recover/3]).
+-export([recover/2, recover/3, sign/3]).
 
 %% NIF
 -export([load/0]).
@@ -36,8 +36,12 @@ recover(Hash, <<V, Sig:64/binary>>) when V == 27; V == 28 ->
 recover(_Hash, _VSig) ->
     <<0:256>>.
 
--spec recover(<<_:(32*8)>>, <<_:(64*8)>>, integer()) -> <<_:(32*8)>>.
+-spec recover(<<_:(32*8)>>, <<_:(64*8)>>, integer()) -> {ok,<<_:(65*8)>>}.
 recover(_Hash, _Sig, _RecId) ->
+    not_loaded(?LINE).
+
+-spec sign(<<_:256>>, <<_:256>>, <<_:256>>) -> {ok,<<_:272>>,integer()}.
+sign(_Hash, _Priv, _Nonce) ->
     not_loaded(?LINE).
 
 %%=============================================================================
